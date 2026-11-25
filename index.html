@@ -7,12 +7,20 @@
 
 <title>Discover Kushiro & Beyond</title>
 
+<meta name="description"
+content="Explore Kushiro and Eastern Hokkaido. Discover local food, beautiful nature, wildlife, hot springs and recommended travel routes.">
+
 <link rel="stylesheet"
 href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <style>
+
+/* =====================================
+   Basic design
+===================================== */
+
 :root {
     --green: #28664d;
     --dark-green: #173e32;
@@ -25,6 +33,7 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     --text: #29443a;
     --muted: #71847a;
     --white: #ffffff;
+    --background: #f5f8f4;
 }
 
 * {
@@ -33,13 +42,14 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 85px;
 }
 
 body {
     margin: 0;
     font-family: Arial, "Hiragino Sans", sans-serif;
     color: var(--text);
-    background: #f5f8f4;
+    background: var(--background);
 }
 
 button, input, select {
@@ -58,21 +68,53 @@ a:focus-visible {
     outline-offset: 3px;
 }
 
-/* Header */
+a {
+    color: var(--green);
+}
+
+button {
+    transition: 0.2s;
+}
+
+/* =====================================
+   Navigation
+===================================== */
 
 .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 1100;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 5%;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 15px 5%;
     background: var(--dark-green);
     color: white;
+    box-shadow: 0 3px 10px #0002;
 }
 
 .logo {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: bold;
     letter-spacing: 1px;
+}
+
+.nav-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
 }
 
 .language-switch {
@@ -93,23 +135,28 @@ a:focus-visible {
     color: var(--dark-green);
 }
 
+/* =====================================
+   Hero
+===================================== */
+
 .hero {
     position: relative;
-    min-height: 370px;
+    min-height: 430px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: white;
-    padding: 65px 20px;
-    background: linear-gradient(
-        130deg,
-        #163f32,
-        #407f63,
-        #3286a2
-    );
-    background-position: center;
+    padding: 70px 20px;
+    background:
+        linear-gradient(
+            135deg,
+            #163f32,
+            #407f63,
+            #3286a2
+        );
     background-size: cover;
+    background-position: center;
 }
 
 .hero-content {
@@ -124,16 +171,24 @@ a:focus-visible {
 }
 
 .hero h1 {
-    font-size: clamp(36px, 6vw, 75px);
-    margin: 18px 0;
+    font-size: clamp(38px, 7vw, 84px);
+    margin: 20px 0;
+    line-height: 1.1;
     letter-spacing: 1px;
-    line-height: 1.15;
-    text-shadow: 0 3px 15px #0004;
+    text-shadow: 0 3px 20px #0005;
 }
 
 .hero p {
     font-size: 18px;
     line-height: 1.8;
+}
+
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
 }
 
 .hero-button {
@@ -144,43 +199,78 @@ a:focus-visible {
     border-radius: 30px;
     text-decoration: none;
     font-weight: bold;
-    margin-top: 15px;
 }
 
-/* Main */
+.hero-button.secondary {
+    color: white;
+    border: 1px solid white;
+    background: #ffffff18;
+}
+
+.hero-credit {
+    position: absolute;
+    bottom: 7px;
+    right: 10px;
+    font-size: 10px;
+    background: #0006;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.hero-credit a {
+    color: white;
+}
+
+/* =====================================
+   Main content
+===================================== */
 
 main {
-    max-width: 1400px;
+    max-width: 1450px;
     margin: auto;
     padding: 30px 22px;
 }
 
 .intro {
-    max-width: 800px;
+    max-width: 850px;
     margin: 15px auto 35px;
     text-align: center;
 }
 
-.intro h2 {
-    font-size: 30px;
+.intro h2,
+.section-heading {
     color: var(--green);
+    font-size: clamp(25px, 4vw, 34px);
 }
 
-.intro p {
+.intro p,
+.section-description {
     line-height: 1.9;
+}
+
+.section-heading {
+    margin: 50px 0 12px;
+    text-align: center;
+}
+
+.section-description {
+    text-align: center;
+    color: var(--muted);
+    max-width: 800px;
+    margin: 0 auto 25px;
 }
 
 .statistics {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 14px;
-    max-width: 850px;
-    margin: 30px auto;
+    max-width: 950px;
+    margin: 30px auto 40px;
 }
 
 .stat {
     background: white;
-    padding: 22px 8px;
+    padding: 24px 8px;
     text-align: center;
     border-radius: 16px;
     box-shadow: 0 3px 15px #00000008;
@@ -189,17 +279,19 @@ main {
 .stat strong {
     display: block;
     color: var(--green);
-    font-size: 32px;
+    font-size: 34px;
 }
 
 .stat span {
     display: block;
-    margin-top: 6px;
+    margin-top: 7px;
     font-size: 13px;
     color: var(--muted);
 }
 
-/* Filters */
+/* =====================================
+   Search and filters
+===================================== */
 
 .filter-panel {
     background: white;
@@ -217,7 +309,8 @@ main {
 }
 
 .search-row input,
-.search-row select {
+.search-row select,
+.route-select {
     width: 100%;
     min-width: 0;
     padding: 13px;
@@ -241,7 +334,6 @@ main {
     color: var(--text);
     font-size: 14px;
     font-weight: bold;
-    transition: 0.2s;
 }
 
 .category-button:hover {
@@ -271,7 +363,9 @@ main {
     text-decoration: underline;
 }
 
-/* Map */
+/* =====================================
+   Map
+===================================== */
 
 .map-panel {
     background: white;
@@ -318,6 +412,31 @@ main {
     line-height: 1.6;
 }
 
+.map-route-banner {
+    display: none;
+    background: var(--dark-green);
+    color: white;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 12px;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.map-route-banner.visible {
+    display: flex;
+}
+
+.map-route-banner button {
+    border: 1px solid white;
+    background: transparent;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 20px;
+}
+
 .custom-marker {
     background: transparent;
     border: 0;
@@ -340,7 +459,23 @@ main {
     font-size: 17px;
 }
 
-/* Popup */
+.route-pin {
+    width: 34px;
+    height: 34px;
+    border: 3px solid white;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 10px #0005;
+}
+
+/* =====================================
+   Map popup
+===================================== */
 
 .leaflet-popup-content-wrapper {
     padding: 0;
@@ -394,7 +529,7 @@ main {
     color: white;
     border-radius: 20px;
     padding: 5px 10px;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: bold;
 }
 
@@ -436,13 +571,244 @@ main {
     overflow-wrap: anywhere;
 }
 
-/* Spot cards */
+/* =====================================
+   Recommended routes
+===================================== */
 
-.section-heading {
-    margin: 45px 0 20px;
-    text-align: center;
-    color: var(--green);
+.routes-section {
+    margin-top: 45px;
+    background: var(--light-green);
+    border-radius: 24px;
+    padding: 25px;
 }
+
+.routes-section .section-heading {
+    margin-top: 10px;
+}
+
+.route-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 270px), 1fr)
+    );
+    gap: 20px;
+}
+
+.route-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    box-shadow: 0 3px 15px #0000000b;
+    display: flex;
+    flex-direction: column;
+}
+
+.route-card.selected {
+    border-color: var(--green);
+    box-shadow: 0 5px 20px #28664d25;
+}
+
+.route-image {
+    height: 180px;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.route-card-body {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.route-number {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.route-card h3 {
+    margin: 10px 0;
+    color: var(--green);
+    font-size: 21px;
+    line-height: 1.4;
+}
+
+.route-meta {
+    display: flex;
+    gap: 7px;
+    flex-wrap: wrap;
+    margin: 8px 0;
+}
+
+.route-meta span {
+    background: #edf3ed;
+    font-size: 11px;
+    padding: 6px 9px;
+    border-radius: 20px;
+}
+
+.route-card p {
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+.route-button {
+    display: block;
+    border: none;
+    border-radius: 9px;
+    background: var(--green);
+    color: white;
+    font-size: 14px;
+    padding: 12px 14px;
+    margin-top: auto;
+    font-weight: bold;
+}
+
+.route-button:hover {
+    background: var(--dark-green);
+}
+
+.route-detail {
+    background: white;
+    border-radius: 18px;
+    margin-top: 25px;
+    padding: 25px;
+    display: none;
+}
+
+.route-detail.visible {
+    display: block;
+}
+
+.route-detail h2 {
+    color: var(--green);
+    line-height: 1.4;
+}
+
+.route-detail p {
+    line-height: 1.8;
+}
+
+.day-heading {
+    background: var(--light-green);
+    border-radius: 8px;
+    padding: 12px;
+    color: var(--green);
+    margin-top: 25px;
+}
+
+.timeline {
+    position: relative;
+    margin: 20px 0;
+    padding: 0;
+}
+
+.timeline-item {
+    display: flex;
+    gap: 16px;
+    position: relative;
+    padding-bottom: 22px;
+}
+
+.timeline-item:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    width: 2px;
+    background: #c5daca;
+    top: 32px;
+    bottom: 0;
+    left: 16px;
+}
+
+.timeline-number {
+    flex-shrink: 0;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--green);
+    color: white;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.timeline-content {
+    flex: 1;
+    background: #f6f9f5;
+    border-radius: 10px;
+    padding: 14px;
+}
+
+.timeline-content h4 {
+    color: var(--green);
+    margin: 0 0 7px;
+    font-size: 17px;
+}
+
+.timeline-content p {
+    margin: 5px 0;
+    font-size: 13px;
+}
+
+.timeline-content button {
+    border: none;
+    background: transparent;
+    color: var(--green);
+    padding: 6px 0;
+    text-decoration: underline;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.route-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.primary-button,
+.secondary-button {
+    display: inline-block;
+    border-radius: 9px;
+    padding: 12px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+}
+
+.primary-button {
+    color: white;
+    background: var(--green);
+    border: 1px solid var(--green);
+}
+
+.secondary-button {
+    color: var(--green);
+    background: white;
+    border: 1px solid var(--green);
+}
+
+.route-notice {
+    background: #fff7e7;
+    border-left: 4px solid #d8ab52;
+    padding: 13px 15px;
+    border-radius: 7px;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+/* =====================================
+   Tourism cards
+===================================== */
 
 .spot-grid {
     display: grid;
@@ -516,7 +882,9 @@ main {
     grid-column: 1 / -1;
 }
 
-/* Travel information */
+/* =====================================
+   Travel tips
+===================================== */
 
 .travel-section {
     margin-top: 50px;
@@ -553,6 +921,10 @@ main {
 .travel-icon {
     font-size: 30px;
 }
+
+/* =====================================
+   Footer
+===================================== */
 
 footer {
     background: var(--dark-green);
@@ -594,19 +966,37 @@ footer a {
     box-shadow: 0 3px 12px #0003;
 }
 
-/* Mobile */
+/* =====================================
+   Mobile responsive
+===================================== */
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
+
+    html {
+        scroll-padding-top: 120px;
+    }
+
     .topbar {
-        padding: 12px;
+        padding: 10px 12px;
     }
 
     .logo {
         font-size: 13px;
     }
 
+    .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        gap: 18px;
+    }
+
+    .nav-links a {
+        font-size: 12px;
+    }
+
     .hero {
-        min-height: 300px;
+        min-height: 340px;
         padding: 40px 15px;
     }
 
@@ -639,36 +1029,90 @@ footer a {
         height: 480px;
     }
 
+    .statistics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     .stat strong {
-        font-size: 25px;
+        font-size: 28px;
     }
 
     .stat span {
-        font-size: 11px;
+        font-size: 12px;
     }
 
     .leaflet-popup-content {
-        width: 235px !important;
+        width: 230px !important;
     }
 
     .popup-photo {
         height: 125px;
     }
 
+    .routes-section,
+    .route-detail,
     .travel-section {
         padding: 16px;
     }
+
+    .route-actions {
+        flex-direction: column;
+    }
+
+    .timeline-item {
+        gap: 10px;
+    }
 }
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    * {
+        transition: none !important;
+    }
+}
+
 </style>
 </head>
 
 <body>
 
+<!-- =====================================
+     Navigation
+====================================== -->
+
 <nav class="topbar">
-    <div class="logo">🌿 DISCOVER KUSHIRO</div>
+
+    <div class="logo">
+        🌿 DISCOVER KUSHIRO
+    </div>
+
+    <div class="nav-links">
+
+        <a href="#explore" id="nav-map">
+            Map
+        </a>
+
+        <a href="#routes" id="nav-routes">
+            Travel Routes
+        </a>
+
+        <a href="#spots" id="nav-spots">
+            Attractions
+        </a>
+
+        <a href="#travel" id="nav-travel">
+            Travel Tips
+        </a>
+
+    </div>
 
     <div class="language-switch">
-        <button id="lang-en" class="active"
+
+        <button id="lang-en"
+                class="active"
                 onclick="setLanguage('en')">
             EN
         </button>
@@ -677,32 +1121,65 @@ footer a {
                 onclick="setLanguage('ja')">
             日本語
         </button>
+
     </div>
+
 </nav>
 
-<header class="hero">
+<!-- =====================================
+     Hero
+====================================== -->
+
+<header class="hero" id="hero">
+
     <div class="hero-content">
+
         <div class="eyebrow">
             EASTERN HOKKAIDO · JAPAN
         </div>
 
-        <h1>Discover Kushiro<br>& Beyond</h1>
+        <h1>
+            Discover Kushiro<br>&amp; Beyond
+        </h1>
 
         <p id="hero-subtitle"></p>
 
-        <a href="#explore" class="hero-button"
-           id="hero-button"></a>
+        <div class="hero-actions">
+
+            <a href="#explore"
+               class="hero-button"
+               id="hero-map"></a>
+
+            <a href="#routes"
+               class="hero-button secondary"
+               id="hero-routes"></a>
+
+        </div>
+
     </div>
+
+    <div id="hero-credit"
+         class="hero-credit"
+         hidden></div>
+
 </header>
 
 <main>
 
+<!-- =====================================
+     Introduction
+====================================== -->
+
 <section class="intro">
+
     <h2 id="intro-title"></h2>
+
     <p id="intro-text"></p>
+
 </section>
 
 <div class="statistics">
+
     <div class="stat">
         <strong id="spot-count">54</strong>
         <span id="stat-spots"></span>
@@ -717,59 +1194,125 @@ footer a {
         <strong>9</strong>
         <span id="stat-areas"></span>
     </div>
+
+    <div class="stat">
+        <strong id="route-count">8</strong>
+        <span id="stat-routes"></span>
+    </div>
+
 </div>
+
+<!-- =====================================
+     Interactive map
+====================================== -->
 
 <section id="explore">
 
-<div class="filter-panel">
+    <h2 class="section-heading"
+        id="map-heading"></h2>
 
-    <div class="search-row">
+    <div class="filter-panel">
 
-        <input type="search" id="search"
-               aria-label="Search tourism spots">
+        <div class="search-row">
 
-        <select id="area-filter"
-                aria-label="Tourism area"></select>
+            <input type="search"
+                   id="search"
+                   aria-label="Search tourism spots">
 
-        <select id="season-filter"
-                aria-label="Best season"></select>
+            <select id="area-filter"
+                    aria-label="Tourism area"></select>
+
+            <select id="season-filter"
+                    aria-label="Best season"></select>
+
+        </div>
+
+        <div id="category-buttons"
+             class="category-buttons"></div>
+
+        <div class="result-row">
+
+            <span id="result-count"
+                  aria-live="polite"></span>
+
+            <button id="reset-button"
+                    class="reset-button"></button>
+
+        </div>
 
     </div>
 
-    <div id="category-buttons"
-         class="category-buttons"></div>
+    <div class="map-panel">
 
-    <div class="result-row">
-        <span id="result-count"></span>
+        <div id="map-route-banner"
+             class="map-route-banner">
 
-        <button id="reset-button"
-                class="reset-button"></button>
+            <strong id="map-route-name"></strong>
+
+            <button id="exit-route-button"></button>
+
+        </div>
+
+        <div id="map-instruction"
+             class="map-instruction"></div>
+
+        <div id="map"
+             aria-label="Interactive tourism map"></div>
+
+        <div id="legend"
+             class="legend"></div>
+
+        <div id="map-note"
+             class="map-note"></div>
+
     </div>
-
-</div>
-
-<div class="map-panel">
-
-    <div id="map-instruction"
-         class="map-instruction"></div>
-
-    <div id="map"
-         aria-label="Interactive tourism map"></div>
-
-    <div id="legend" class="legend"></div>
-
-    <div class="map-note" id="map-note"></div>
-
-</div>
 
 </section>
 
-<h2 class="section-heading"
-    id="spots-heading"></h2>
+<!-- =====================================
+     Recommended travel routes
+====================================== -->
 
-<div id="spot-list" class="spot-grid"></div>
+<section id="routes"
+         class="routes-section">
 
-<section class="travel-section">
+    <h2 class="section-heading"
+        id="routes-heading"></h2>
+
+    <p class="section-description"
+       id="routes-description"></p>
+
+    <div id="route-grid"
+         class="route-grid"></div>
+
+    <div id="route-detail"
+         class="route-detail"></div>
+
+</section>
+
+<!-- =====================================
+     Tourism spot list
+====================================== -->
+
+<section id="spots">
+
+    <h2 class="section-heading"
+        id="spots-heading"></h2>
+
+    <p class="section-description"
+       id="spots-description"></p>
+
+    <div id="spot-list"
+         class="spot-grid"></div>
+
+</section>
+
+<!-- =====================================
+     Travel tips
+====================================== -->
+
+<section id="travel"
+         class="travel-section">
 
     <h2 id="travel-heading"></h2>
 
@@ -780,26 +1323,33 @@ footer a {
 
 </main>
 
+<!-- =====================================
+     Footer
+====================================== -->
+
 <footer>
 
-    <h2>Discover Kushiro & Beyond</h2>
+    <h2>Discover Kushiro &amp; Beyond</h2>
 
     <p id="footer-text"></p>
 
     <div class="footer-links">
 
         <a href="https://en.kushiro-lakeakan.com/"
-           target="_blank" rel="noopener">
-            Kushiro & Lake Akan Tourism
+           target="_blank"
+           rel="noopener noreferrer">
+            Kushiro &amp; Lake Akan Tourism
         </a>
 
         <a href="https://www.visit-hokkaido.jp/en/"
-           target="_blank" rel="noopener">
+           target="_blank"
+           rel="noopener noreferrer">
             Hokkaido Tourism
         </a>
 
         <a href="https://www.japan.travel/en/"
-           target="_blank" rel="noopener">
+           target="_blank"
+           rel="noopener noreferrer">
             Japan Tourism
         </a>
 
@@ -822,79 +1372,231 @@ footer a {
 <script>
 
 /* =====================================
-   Language settings
+   Global state
 ===================================== */
 
 let lang = "en";
 let activeCategory = "all";
+let activeRoute = null;
+
+const $ = id => document.getElementById(id);
+
+/* =====================================
+   Language settings
+===================================== */
 
 const translations = {
+
     en: {
+        navMap: "Map",
+        navRoutes: "Travel Routes",
+        navSpots: "Attractions",
+        navTravel: "Travel Tips",
+
         subtitle:
             "Taste the local food. Explore the wild nature.<br>Discover the hidden treasures of Eastern Hokkaido.",
-        heroButton: "Explore the Map ↓",
+
+        heroMap: "Explore the Map ↓",
+        heroRoutes: "Find Your Travel Route",
+
         introTitle: "Your Eastern Hokkaido Adventure",
+
         introText:
             "From fresh seafood and peaceful wetlands to volcanic lakes, red-crowned cranes and relaxing hot springs, discover the unforgettable sights and flavors of Kushiro and its neighboring towns.",
+
         spots: "Tourism Spots",
         categories: "Categories",
         areas: "Travel Areas",
-        search: "🔍 Search places, food or experiences...",
+        routes: "Travel Routes",
+
+        mapHeading: "Interactive Tourism Map",
+
+        search:
+            "Search places, food or experiences...",
+
         allAreas: "All Areas",
         allSeasons: "All Seasons",
         all: "All Spots",
         reset: "Reset Filters",
         results: "spots found",
+
         instruction:
             "📍 Select a map pin to discover photos, local stories and travel recommendations.",
+
         mapNote:
-            "Pin locations are approximate. Check the destination and access information before traveling.",
+            "Pin locations are approximate. Some pins represent regional specialties. Route lines show visiting order, not actual roads.",
+
+        routeMapNote:
+            "Numbered pins show the visiting order. Dashed lines are not navigation directions.",
+
+        routesHeading:
+            "Recommended Travel Routes",
+
+        routesDescription:
+            "Choose from eight suggested itineraries, from a short city walk to a three-day road trip through Eastern Hokkaido.",
+
+        route: "ROUTE",
+
+        viewRoute: "Explore This Route",
+
+        showRoute: "Show Route on Map",
+
+        exitRoute: "Back to All Spots",
+
+        selectedRoute: "Selected Route",
+
+        itinerary: "Suggested Itinerary",
+
+        day: "Day",
+
+        routeGoogle: "Open Day in Google Maps",
+
+        mapsNotice:
+            "Travel durations are estimates. Check opening hours, seasonal closures, weather and reservations. Google Maps links may cover only the land portion of a route. Boat journeys require separate arrangements.",
+
         heading: "Explore Our Recommended Spots",
+
+        spotsDescription:
+            "Discover local favorites and hidden gems across Kushiro and the surrounding region.",
+
         recommended: "⭐ Recommended",
+
         season: "📅 Best Season",
+
         directions: "View on Google Maps ↗",
+
         explore: "📍 Explore on Map",
+
         noResults: "No spots match your search.",
+
         photoUnavailable: "Photo unavailable",
+
+        photoLoading: "Loading photo...",
+
         travel: "Useful Travel Tips",
+
         footer:
             "Food, Nature, Wildlife and Unforgettable Experiences",
+
         footerNote:
-            "Check official websites for current opening hours, weather, transport and access restrictions."
+            "This is a visitor planning guide. Check official websites for current information before traveling.",
+
+        mapUnavailable:
+            "Map unavailable. Please check your internet connection.",
+
+        routeHint:
+            "Use the numbered stops to explore each destination.",
+
+        mixedMode: "Mixed transport",
+
+        boatNotice:
+            "Boat services require separate tickets and schedule checks."
     },
 
     ja: {
+        navMap: "観光MAP",
+        navRoutes: "おすすめコース",
+        navSpots: "観光スポット",
+        navTravel: "旅行情報",
+
         subtitle:
             "美味しい食と雄大な自然を楽しむ。<br>釧路から道東の隠れた魅力を発見しよう。",
-        heroButton: "観光マップを見る ↓",
+
+        heroMap: "観光マップを見る ↓",
+        heroRoutes: "おすすめコースを見る",
+
         introTitle: "釧路から始まる道東の旅",
+
         introText:
             "新鮮な海の幸、広大な湿原、美しい湖、タンチョウ、温泉。釧路市と周辺地域の魅力を、この観光マップで発見しましょう。",
+
         spots: "観光スポット",
         categories: "カテゴリー",
         areas: "観光エリア",
-        search: "🔍 観光地・グルメ・体験を検索...",
+        routes: "おすすめコース",
+
+        mapHeading: "インタラクティブ観光MAP",
+
+        search:
+            "観光地・グルメ・体験を検索...",
+
         allAreas: "すべてのエリア",
         allSeasons: "すべての季節",
         all: "すべて",
         reset: "絞り込みを解除",
         results: "件のスポット",
+
         instruction:
             "📍 地図のピンを押すと写真・紹介文・おすすめポイントが表示されます。",
+
         mapNote:
-            "ピンは概略位置を含みます。訪問前に目的地やアクセス情報をご確認ください。",
+            "ピンには概略位置や特産品の代表地点を含みます。コースの線は訪問順を示すもので、実際の道路経路ではありません。",
+
+        routeMapNote:
+            "番号付きピンは訪問順を示します。破線は実際の道路経路ではありません。",
+
+        routesHeading: "おすすめ観光コース",
+
+        routesDescription:
+            "気軽な街歩きから道東を巡る2泊3日の旅まで、8つのおすすめ観光コースをご紹介します。",
+
+        route: "コース",
+
+        viewRoute: "このコースを見る",
+
+        showRoute: "地図にコースを表示",
+
+        exitRoute: "すべてのスポットに戻る",
+
+        selectedRoute: "選択中のコース",
+
+        itinerary: "おすすめの行程",
+
+        day: "日目",
+
+        routeGoogle: "この日の経路をGoogleマップで見る",
+
+        mapsNotice:
+            "所要日数は目安です。営業時間、季節休業、天候、予約状況をご確認ください。Googleマップは陸上移動を中心とした経路です。遊覧船は別途手配が必要です。",
+
         heading: "おすすめ観光スポット",
+
+        spotsDescription:
+            "釧路市と周辺地域の定番観光地や、地元ならではの魅力を探してみましょう。",
+
         recommended: "⭐ おすすめポイント",
+
         season: "📅 おすすめの季節",
+
         directions: "Googleマップで見る ↗",
+
         explore: "📍 地図で見る",
-        noResults: "条件に一致するスポットがありません。",
+
+        noResults:
+            "条件に一致するスポットがありません。",
+
         photoUnavailable: "写真を取得できません",
+
+        photoLoading: "写真を読み込み中...",
+
         travel: "旅行に役立つ情報",
+
         footer:
             "食・自然・野生動物・忘れられない体験",
+
         footerNote:
-            "営業時間・天候・交通情報・立入制限については公式サイトで最新情報をご確認ください。"
+            "旅行計画のための観光ガイドです。訪問前に公式サイトで最新情報をご確認ください。",
+
+        mapUnavailable:
+            "地図を表示できません。インターネット接続をご確認ください。",
+
+        routeHint:
+            "番号の順に各観光スポットを巡りましょう。",
+
+        mixedMode: "複数の交通手段",
+
+        boatNotice:
+            "遊覧船の乗船券や運航日程は別途確認してください。"
     }
 };
 
@@ -905,36 +1607,42 @@ const t = key => translations[lang][key];
 ===================================== */
 
 const categories = {
+
     food: {
         en: "Local Food",
         ja: "グルメ",
         emoji: "🍴",
         color: "#e58b39"
     },
+
     nature: {
         en: "Nature",
         ja: "自然・絶景",
         emoji: "🌿",
         color: "#36845b"
     },
+
     wildlife: {
         en: "Wildlife",
         ja: "野生動物",
         emoji: "🐦",
         color: "#9064ac"
     },
+
     activity: {
         en: "Activities",
         ja: "観光体験",
         emoji: "🛶",
         color: "#368ab5"
     },
+
     onsen: {
         en: "Hot Springs",
         ja: "温泉",
         emoji: "♨️",
         color: "#cf7085"
     },
+
     culture: {
         en: "Culture",
         ja: "文化・歴史",
@@ -944,38 +1652,47 @@ const categories = {
 };
 
 const areas = {
+
     kushiro: {
         en: "Kushiro City",
         ja: "釧路市街地"
     },
+
     akan: {
         en: "Akan & Lake Akan",
         ja: "阿寒・阿寒湖"
     },
+
     kushirocho: {
         en: "Kushiro Town",
         ja: "釧路町"
     },
+
     tsurui: {
         en: "Tsurui",
         ja: "鶴居村"
     },
+
     shibecha: {
         en: "Shibecha",
         ja: "標茶町"
     },
+
     akkeshi: {
         en: "Akkeshi",
         ja: "厚岸町"
     },
+
     hamanaka: {
         en: "Hamanaka",
         ja: "浜中町"
     },
+
     teshikaga: {
         en: "Teshikaga & Nearby",
         ja: "弟子屈町・周辺"
     },
+
     shiranuka: {
         en: "Shiranuka & Ombetsu",
         ja: "白糠町・音別"
@@ -983,22 +1700,43 @@ const areas = {
 };
 
 const seasons = {
-    spring: {en:"Spring", ja:"春"},
-    summer: {en:"Summer", ja:"夏"},
-    autumn: {en:"Autumn", ja:"秋"},
-    winter: {en:"Winter", ja:"冬"},
-    year: {en:"Year-round", ja:"通年"}
+
+    spring: {
+        en: "Spring",
+        ja: "春"
+    },
+
+    summer: {
+        en: "Summer",
+        ja: "夏"
+    },
+
+    autumn: {
+        en: "Autumn",
+        ja: "秋"
+    },
+
+    winter: {
+        en: "Winter",
+        ja: "冬"
+    },
+
+    year: {
+        en: "Year-round",
+        ja: "通年"
+    }
 };
 
 /* =====================================
-   Tourism data
+   54 tourism spots
 
-   Format:
-   Area, category, latitude, longitude,
-   English name, Japanese name,
-   English introduction, Japanese introduction,
-   English recommendation, Japanese recommendation,
-   Seasons, photo search keyword
+   Data format:
+
+   Area, Category, Latitude, Longitude,
+   English Name, Japanese Name,
+   English Description, Japanese Description,
+   English Tip, Japanese Tip,
+   Seasons, Photo Keyword
 
    Coordinates are approximate.
 ===================================== */
@@ -1022,8 +1760,8 @@ const rawSpots = [
 "Kushiro Robatayaki","釧路の炉端焼き",
 "Enjoy seafood and vegetables grilled over charcoal, a traditional dining experience in Kushiro.",
 "炭火で魚介や野菜を焼く釧路ならではの食文化です。",
-"Try freshly grilled local fish.",
-"地元の新鮮な焼き魚を味わいましょう。",
+"Try freshly grilled local fish at a traditional robata restaurant.",
+"昔ながらの炉端焼き店で、新鮮な魚を味わいましょう。",
 "year","Kushiro robatayaki"
 ],
 
@@ -1061,7 +1799,7 @@ const rawSpots = [
 "kushiro","nature",42.9810,144.3856,
 "Nusamai Bridge Sunset","幣舞橋の夕日",
 "Watch the sunset over the Kushiro River from one of the city's best-known landmarks.",
-"釧路を代表する橋から、川に沈む美しい夕日を眺められます。",
+"釧路を代表する橋から美しい夕日を眺められます。",
 "Visit before sunset on a clear evening.",
 "晴れた日の夕暮れ前がおすすめ。",
 "year","Nusamai Bridge sunset"
@@ -1134,7 +1872,7 @@ const rawSpots = [
 "Bokke Mud Volcanoes","ボッケ",
 "Discover bubbling volcanic mud pools along a forested lakeside trail.",
 "湖畔の森の中にある泥火山で、地熱活動を観察できます。",
-"Stay on the designated trail and enjoy the geothermal scenery.",
+"Stay on the designated trail.",
 "決められた遊歩道から地熱活動を観察しましょう。",
 "spring,summer,autumn","Bokke Lake Akan"
 ],
@@ -1154,8 +1892,8 @@ const rawSpots = [
 "Lake Akan Sightseeing Cruise","阿寒湖遊覧船",
 "Explore Lake Akan from the water and admire the surrounding mountains.",
 "湖上から阿寒の山々や豊かな自然を楽しめる遊覧船です。",
-"Choose a clear day and check the sailing schedule.",
-"晴れた日がおすすめ。運航予定を確認しましょう。",
+"Check the sailing schedule before visiting.",
+"運航予定を事前に確認しましょう。",
 "spring,summer,autumn","Lake Akan sightseeing boat"
 ],
 
@@ -1226,7 +1964,7 @@ const rawSpots = [
 "Cape Shirepa","尻羽岬",
 "A dramatic coastal cape with cliffs, grasslands and Pacific Ocean views.",
 "断崖と草原、太平洋の雄大な景色が広がる岬です。",
-"Check access conditions and stay well away from cliff edges.",
+"Check access conditions and stay away from cliff edges.",
 "通行状況を確認し、崖には近づかないようにしましょう。",
 "summer,autumn","Cape Shirepa Hokkaido"
 ],
@@ -1290,7 +2028,7 @@ const rawSpots = [
 "Tawadaira Observatory","多和平",
 "Enjoy vast rolling pastureland and panoramic views of eastern Hokkaido.",
 "360度に広がる牧草地と道東らしい雄大な景色を楽しめます。",
-"Visit on a clear day for the best panoramic scenery.",
+"Visit on a clear day for panoramic scenery.",
 "晴れた日のパノラマビューがおすすめ。",
 "spring,summer,autumn","Tawadaira Observatory"
 ],
@@ -1362,7 +2100,7 @@ const rawSpots = [
 "Akkeshi Distillery","厚岸蒸溜所",
 "A whisky distillery inspired by the climate and landscape of eastern Hokkaido.",
 "道東の気候や自然環境を生かしたウイスキー蒸溜所です。",
-"Check official information for tours and visitor access.",
+"Check official information for visitor access.",
 "見学や立入の可否は公式情報で確認しましょう。",
 "year","Akkeshi Distillery"
 ],
@@ -1372,7 +2110,7 @@ const rawSpots = [
 "Cape Aikappu","愛冠岬",
 "A scenic cape overlooking the rugged coastline of Akkeshi Bay.",
 "厚岸湾の海岸線と太平洋を望む美しい岬です。",
-"Enjoy the ocean views from safe designated areas.",
+"Enjoy ocean views from designated areas.",
 "安全な展望場所から海の景色を楽しみましょう。",
 "summer,autumn","Cape Aikappu Akkeshi"
 ],
@@ -1394,7 +2132,7 @@ const rawSpots = [
 "Cape Kiritappu","霧多布岬",
 "A spectacular cape with sea cliffs and views across the Pacific Ocean.",
 "断崖と太平洋の雄大な景色を楽しめる岬です。",
-"Bring a windproof jacket and enjoy the coastal scenery.",
+"Bring a windproof jacket.",
 "防風性のある上着を持参しましょう。",
 "spring,summer,autumn","Cape Kiritappu"
 ],
@@ -1421,7 +2159,7 @@ const rawSpots = [
 
 [
 "hamanaka","nature",43.0860,145.0800,
-"Biwasé Observatory","琵琶瀬展望台",
+"Biwase Observatory","琵琶瀬展望台",
 "Enjoy elevated views of the winding river and vast Kiritappu wetlands.",
 "蛇行する川と広大な霧多布湿原を見渡せる展望台です。",
 "Enjoy the landscape on a clear day.",
@@ -1486,7 +2224,7 @@ const rawSpots = [
 "Sunayu Hot Sand Beach","砂湯",
 "A geothermal lakeside beach where warm water can rise through the sand.",
 "砂の下から温泉が湧き出す屈斜路湖畔のスポットです。",
-"Enjoy geothermal scenery and check local bathing guidance.",
+"Enjoy geothermal scenery and follow local guidance.",
 "温泉の景観を楽しみ、現地の案内に従いましょう。",
 "year","Sunayu Lake Kussharo"
 ],
@@ -1558,42 +2296,509 @@ const rawSpots = [
 "Ombetsu Butterbur","音別のフキ",
 "Discover fuki, a traditional edible plant grown in the Ombetsu area.",
 "音別地域の特産品であるフキ。日本の食文化にも親しまれています。",
-"Look for local seasonal products and prepared foods.",
+"Look for seasonal products and prepared foods.",
 "旬のフキや加工品を探してみましょう。",
 "spring,summer","Ombetsu Hokkaido fuki"
 ]
 
 ];
 
-/* Convert data into objects */
+/* Convert raw spot data */
 
-const spots = rawSpots.map((s, i) => ({
+const spots = rawSpots.map((s,i) => ({
+
     id: i + 1,
+
     area: s[0],
+
     category: s[1],
+
     lat: s[2],
+
     lng: s[3],
+
     name: {
         en: s[4],
         ja: s[5]
     },
+
     description: {
         en: s[6],
         ja: s[7]
     },
+
     recommendation: {
         en: s[8],
         ja: s[9]
     },
+
     seasons: s[10].split(","),
+
     photoSearch: s[11]
+
 }));
+
+const spotById = id =>
+    spots.find(spot => spot.id === id);
+
+/* =====================================
+   Additional route-only destination
+
+   Not included in the 54 main spots.
+===================================== */
+
+const extraSpots = {
+
+    101: {
+        id: 101,
+        area: "akan",
+        category: "onsen",
+        lat: 43.4337,
+        lng: 144.0960,
+
+        name: {
+            en: "Lake Akan Onsen",
+            ja: "阿寒湖温泉"
+        },
+
+        description: {
+            en: "Relax in a lakeside hot spring resort surrounded by beautiful mountains.",
+            ja: "雄大な山々に囲まれた湖畔の温泉街です。"
+        },
+
+        recommendation: {
+            en: "Stay overnight and enjoy a relaxing hot spring bath.",
+            ja: "温泉宿に泊まり、ゆっくりと温泉を楽しみましょう。"
+        },
+
+        seasons: ["year"],
+
+        photoSearch: "Lake Akan Onsen"
+    }
+};
+
+const getSpot = id =>
+    spotById(id) || extraSpots[id];
+
+/* =====================================
+   8 recommended travel routes
+
+   Each route references the tourism
+   spots using their IDs.
+===================================== */
+
+const routes = [
+
+/* Route 1 */
+
+{
+    id: 1,
+
+    title: {
+        en: "Kushiro Food & Sunset",
+        ja: "釧路グルメと夕日コース"
+    },
+
+    description: {
+        en: "Enjoy fresh seafood, waterfront scenery, a beautiful sunset and traditional charcoal-grilled food in the heart of Kushiro.",
+        ja: "新鮮な海の幸、港町の風景、美しい夕日、伝統的な炉端焼きを楽しむ釧路の定番コースです。"
+    },
+
+    duration: {
+        en: "Half Day · 4–5 Hours",
+        ja: "半日・4～5時間"
+    },
+
+    transport: {
+        en: "Walking",
+        ja: "徒歩"
+    },
+
+    travelMode: "walking",
+
+    seasons: ["year"],
+
+    color: "#df8b45",
+
+    cover: 6,
+
+    days: [
+        {
+            stops: [1,5,6,2],
+            mode: "walking"
+        }
+    ],
+
+    tip: {
+        en: "Start before lunch or adjust your departure to the sunset time. Check market opening hours.",
+        ja: "市場の営業時間と夕日の時刻を確認して、出発時間を調整しましょう。"
+    }
+},
+
+/* Route 2 */
+
+{
+    id: 2,
+
+    title: {
+        en: "Wild Kushiro Wetlands",
+        ja: "釧路湿原の大自然満喫コース"
+    },
+
+    description: {
+        en: "Discover the spectacular wetlands from panoramic viewpoints and experience the peaceful Kushiro River on a guided canoe tour.",
+        ja: "展望台から釧路湿原を一望し、カヌーで水上からも大自然を体験するコースです。"
+    },
+
+    duration: {
+        en: "1 Day",
+        ja: "1日"
+    },
+
+    transport: {
+        en: "Car & Canoe",
+        ja: "車・カヌー"
+    },
+
+    travelMode: "driving",
+
+    seasons: ["spring","summer","autumn"],
+
+    color: "#36845b",
+
+    cover: 19,
+
+    days: [
+        {
+            stops: [19,20,29,30,31],
+            mode: "driving"
+        }
+    ],
+
+    tip: {
+        en: "Reserve a guided canoe tour in advance and allow extra time for outdoor activities.",
+        ja: "カヌーツアーを事前に予約し、自然体験の時間に余裕を持ちましょう。"
+    }
+},
+
+/* Route 3 */
+
+{
+    id: 3,
+
+    title: {
+        en: "Dancing Cranes of Hokkaido",
+        ja: "タンチョウと冬の絶景コース"
+    },
+
+    description: {
+        en: "Meet the iconic red-crowned cranes of Hokkaido and finish the day with a relaxing hot spring experience.",
+        ja: "北海道を象徴するタンチョウを観察し、最後は温泉で身体を温める冬のおすすめコースです。"
+    },
+
+    duration: {
+        en: "1 Day",
+        ja: "1日"
+    },
+
+    transport: {
+        en: "Car",
+        ja: "車"
+    },
+
+    travelMode: "driving",
+
+    seasons: ["winter"],
+
+    color: "#9064ac",
+
+    cover: 23,
+
+    days: [
+        {
+            stops: [23,24,16,17],
+            mode: "driving"
+        }
+    ],
+
+    tip: {
+        en: "Bring binoculars, warm winter clothing and suitable footwear. Check winter road conditions.",
+        ja: "双眼鏡と防寒着、冬用の靴を準備し、冬道の状況を確認しましょう。"
+    }
+},
+
+/* Route 4 */
+
+{
+    id: 4,
+
+    title: {
+        en: "Lake Akan Nature & Culture",
+        ja: "阿寒湖・アイヌ文化体験コース"
+    },
+
+    description: {
+        en: "Explore a volcanic lake, discover the mysterious marimo, experience Ainu culture and enjoy Japanese hot springs.",
+        ja: "阿寒湖の自然とマリモ、アイヌ文化、日本の温泉を満喫できるコースです。"
+    },
+
+    duration: {
+        en: "1–2 Days",
+        ja: "1日～1泊2日"
+    },
+
+    transport: {
+        en: "Car, Walking & Boat",
+        ja: "車・徒歩・遊覧船"
+    },
+
+    travelMode: "walking",
+
+    seasons: ["spring","summer","autumn"],
+
+    color: "#368ab5",
+
+    cover: 11,
+
+    days: [
+        {
+            stops: [15,14,13,12,101],
+
+            navigationStops: [15,13,12,101],
+
+            mode: "walking",
+
+            boat: true
+        }
+    ],
+
+    tip: {
+        en: "The Marimo Exhibition Center requires a boat trip. Check the cruise schedule and consider an overnight stay at Lake Akan Onsen.",
+        ja: "マリモ展示観察センターへは遊覧船を利用します。運航日程を確認し、阿寒湖温泉での宿泊も検討しましょう。"
+    }
+},
+
+/* Route 5 */
+
+{
+    id: 5,
+
+    title: {
+        en: "Pacific Coast & Seafood Adventure",
+        ja: "厚岸・浜中の海とグルメコース"
+    },
+
+    description: {
+        en: "Taste famous Akkeshi oysters, explore dramatic coastal landscapes and look for wild sea otters near Cape Kiritappu.",
+        ja: "厚岸の牡蠣と太平洋の絶景を楽しみ、霧多布岬では野生のラッコに出会えるかもしれません。"
+    },
+
+    duration: {
+        en: "1 Full Day",
+        ja: "1日"
+    },
+
+    transport: {
+        en: "Car",
+        ja: "車"
+    },
+
+    travelMode: "driving",
+
+    seasons: ["spring","summer","autumn"],
+
+    color: "#2686a4",
+
+    cover: 38,
+
+    days: [
+        {
+            stops: [34,36,37,41,38],
+            mode: "driving"
+        }
+    ],
+
+    tip: {
+        en: "Allow plenty of driving time. Sea otter sightings depend on wildlife and weather conditions.",
+        ja: "移動時間に余裕を持ちましょう。ラッコが見られるかどうかは自然条件によります。"
+    }
+},
+
+/* Route 6 */
+
+{
+    id: 6,
+
+    title: {
+        en: "Mystical Lakes & Volcanoes",
+        ja: "神秘の湖と火山・温泉コース"
+    },
+
+    description: {
+        en: "Explore the mysterious blue waters of Lake Mashu, steaming volcanic landscapes, Lake Kussharo and relaxing hot springs.",
+        ja: "摩周湖の神秘的な青、硫黄山の噴気、屈斜路湖と温泉を巡る絶景コースです。"
+    },
+
+    duration: {
+        en: "1–2 Days",
+        ja: "1日～1泊2日"
+    },
+
+    transport: {
+        en: "Car",
+        ja: "車"
+    },
+
+    travelMode: "driving",
+
+    seasons: ["year"],
+
+    color: "#cf7085",
+
+    cover: 43,
+
+    days: [
+        {
+            stops: [43,45,46,47,48],
+            mode: "driving"
+        }
+    ],
+
+    tip: {
+        en: "Lake Mashu is sometimes covered in fog. Check mountain road conditions, especially in winter.",
+        ja: "摩周湖は霧に包まれることがあります。特に冬は峠の道路状況を確認しましょう。"
+    }
+},
+
+/* Route 7 */
+
+{
+    id: 7,
+
+    title: {
+        en: "Hidden Local Flavors",
+        ja: "白糠・音別の隠れたグルメコース"
+    },
+
+    description: {
+        en: "Discover lesser-known local specialties, artisan cheese, seasonal seafood and peaceful Pacific coastal scenery.",
+        ja: "白糠と音別の特産品、こだわりのチーズ、旬の魚介類、太平洋の風景を楽しむコースです。"
+    },
+
+    duration: {
+        en: "Half Day – 1 Day",
+        ja: "半日～1日"
+    },
+
+    transport: {
+        en: "Car",
+        ja: "車"
+    },
+
+    travelMode: "driving",
+
+    seasons: ["year"],
+
+    color: "#97774e",
+
+    cover: 50,
+
+    days: [
+        {
+            stops: [51,50,52,53,54],
+            mode: "driving"
+        }
+    ],
+
+    tip: {
+        en: "Specialty food pins represent general areas. Choose actual shops and confirm product availability before departure.",
+        ja: "特産品のピンは地域の代表地点です。出発前に具体的な販売店と商品の販売状況を確認しましょう。"
+    }
+},
+
+/* Route 8 */
+
+{
+    id: 8,
+
+    title: {
+        en: "Ultimate Eastern Hokkaido Road Trip",
+        ja: "道東の魅力を満喫する2泊3日コース"
+    },
+
+    description: {
+        en: "Experience the best of Eastern Hokkaido in three days, combining local food, wetlands, wildlife, Ainu culture, volcanic lakes and hot springs.",
+        ja: "釧路の食、湿原、野生動物、アイヌ文化、カルデラ湖、温泉を3日間で楽しむ道東周遊コースです。"
+    },
+
+    duration: {
+        en: "3 Days · 2 Nights",
+        ja: "2泊3日"
+    },
+
+    transport: {
+        en: "Car",
+        ja: "車"
+    },
+
+    travelMode: "driving",
+
+    seasons: ["spring","summer","autumn"],
+
+    color: "#28664d",
+
+    cover: 19,
+
+    days: [
+
+        {
+            title: {
+                en: "Kushiro City & Wetlands",
+                ja: "釧路市街地と釧路湿原"
+            },
+
+            stops: [1,19,10,6,2],
+
+            mode: "driving"
+        },
+
+        {
+            title: {
+                en: "Tsurui & Lake Akan",
+                ja: "鶴居村と阿寒湖"
+            },
+
+            stops: [25,27,11,12,101],
+
+            mode: "driving"
+        },
+
+        {
+            title: {
+                en: "Lake Mashu & Lake Kussharo",
+                ja: "摩周湖と屈斜路湖"
+            },
+
+            stops: [43,45,46,47,48],
+
+            mode: "driving"
+        }
+    ],
+
+    tip: {
+        en: "Suggested overnight stays: Kushiro City on Day 1 and Lake Akan Onsen on Day 2. Plan your onward journey after Day 3.",
+        ja: "1泊目は釧路市街地、2泊目は阿寒湖温泉がおすすめです。3日目の観光終了後の移動も計画しておきましょう。"
+    }
+}
+
+];
 
 /* =====================================
    Utility functions
 ===================================== */
 
 function escapeHTML(value) {
+
     return String(value).replace(
         /[&<>"']/g,
         ch => ({
@@ -1607,40 +2812,125 @@ function escapeHTML(value) {
 }
 
 function plainText(html) {
+
     return new DOMParser()
         .parseFromString(html || "", "text/html")
         .body.textContent || "";
 }
 
-function seasonText(spot) {
-    return spot.seasons
+function safeURL(value) {
+
+    try {
+        const url = new URL(value);
+
+        if (
+            url.protocol === "https:" ||
+            url.protocol === "http:"
+        ) {
+            return url.href;
+        }
+    } catch (error) {
+        return "";
+    }
+
+    return "";
+}
+
+function seasonText(item) {
+
+    return item.seasons
         .map(s => seasons[s][lang])
         .join(lang === "ja" ? "・" : ", ");
 }
 
 function mapsURL(spot) {
+
     return "https://www.google.com/maps/search/?api=1&query=" +
         encodeURIComponent(
-            spot.name.ja + " 北海道 " + areas[spot.area].ja
+            spot.name.ja + " 北海道"
         );
 }
 
-function placeholder(spot) {
+function navigationQuery(spot) {
+
+    const queries = {
+
+        2: "炉端焼き 炉ばた 釧路市 北海道",
+
+        3: "釧路ラーメン 河むら 釧路市 北海道",
+
+        27: "鶴居村 チーズ 販売店 北海道",
+
+        30: "塘路湖 カヌーツアー 標茶町 北海道",
+
+        51: "道の駅しらぬか恋問 北海道",
+
+        52: "白糠町 ししゃも 販売店 北海道",
+
+        53: "白糠町 チーズ 販売店 北海道",
+
+        54: "音別町 特産品 販売店 北海道"
+    };
+
+    return queries[spot.id] ||
+        spot.name.ja + " 北海道";
+}
+
+/* =====================================
+   Placeholder image
+===================================== */
+
+function placeholder(spot, message) {
+
     const cat = categories[spot.category];
 
     const svg = `
     <svg xmlns="http://www.w3.org/2000/svg"
          width="600" height="360">
-        <rect width="600" height="360"
-              fill="#e7efe7"/>
-        <circle cx="300" cy="145" r="85"
-                fill="${cat.color}" opacity=".13"/>
-        <text x="300" y="170" text-anchor="middle"
-              font-size="80">${cat.emoji}</text>
-        <text x="300" y="270" text-anchor="middle"
-              font-size="18" fill="#28664d">
-            ${escapeHTML(t("photoUnavailable"))}
+
+        <defs>
+            <linearGradient id="g"
+                x1="0" y1="0"
+                x2="1" y2="1">
+
+                <stop offset="0"
+                      stop-color="#e5eee3"/>
+
+                <stop offset="1"
+                      stop-color="#c6dfd1"/>
+
+            </linearGradient>
+        </defs>
+
+        <rect width="600"
+              height="360"
+              fill="url(#g)"/>
+
+        <path d="M0 280 L120 160 L240 280 L390 100 L600 280 V360 H0Z"
+              fill="${cat.color}"
+              opacity=".12"/>
+
+        <circle cx="300"
+                cy="145"
+                r="76"
+                fill="${cat.color}"
+                opacity=".15"/>
+
+        <text x="300"
+              y="170"
+              text-anchor="middle"
+              font-size="75">
+            ${cat.emoji}
         </text>
+
+        <text x="300"
+              y="270"
+              text-anchor="middle"
+              font-size="18"
+              fill="#28664d">
+            ${escapeHTML(message || t("photoLoading"))}
+        </text>
+
     </svg>`;
 
     return "data:image/svg+xml;charset=UTF-8," +
@@ -1648,33 +2938,89 @@ function placeholder(spot) {
 }
 
 /* =====================================
-   Wikimedia Commons photos
+   Wikimedia Commons photo loading
 
-   Only openly licensed photos are selected.
-   Search results require manual verification
-   before publishing this website.
+   Search for openly licensed photographs.
+   Results must be checked before publication.
 ===================================== */
 
 const photoCache = new Map();
 
+const photoQueue = [];
+
+let runningPhotoRequests = 0;
+
+const maxPhotoRequests = 4;
+
+function queuePhotoRequest(task) {
+
+    return new Promise((resolve,reject) => {
+
+        photoQueue.push({
+            task,
+            resolve,
+            reject
+        });
+
+        processPhotoQueue();
+    });
+}
+
+function processPhotoQueue() {
+
+    while (
+        runningPhotoRequests < maxPhotoRequests &&
+        photoQueue.length
+    ) {
+
+        const job = photoQueue.shift();
+
+        runningPhotoRequests++;
+
+        Promise.resolve()
+            .then(job.task)
+            .then(job.resolve,job.reject)
+            .finally(() => {
+
+                runningPhotoRequests--;
+
+                processPhotoQueue();
+            });
+    }
+}
+
 async function fetchPhoto(spot) {
 
-    if (photoCache.has(spot.id)) {
-        return photoCache.get(spot.id);
+    const key = spot.photoSearch;
+
+    if (photoCache.has(key)) {
+        return photoCache.get(key);
     }
 
-    const promise = (async () => {
+    const promise = queuePhotoRequest(async () => {
+
         try {
+
             const params = new URLSearchParams({
+
                 action: "query",
+
                 generator: "search",
+
                 gsrsearch: spot.photoSearch,
+
                 gsrnamespace: "6",
-                gsrlimit: "6",
+
+                gsrlimit: "8",
+
                 prop: "imageinfo",
+
                 iiprop: "url|mime|extmetadata",
-                iiurlwidth: "640",
+
+                iiurlwidth: "800",
+
                 format: "json",
+
                 origin: "*"
             });
 
@@ -1689,8 +3035,10 @@ async function fetchPhoto(spot) {
 
             const pages = Object.values(
                 data.query?.pages || {}
-            ).sort((a,b) =>
-                (a.index || 0) - (b.index || 0)
+            ).sort(
+                (a,b) =>
+                (a.index || 0) -
+                (b.index || 0)
             );
 
             for (const page of pages) {
@@ -1703,27 +3051,47 @@ async function fetchPhoto(spot) {
                     "image/jpeg",
                     "image/png",
                     "image/webp"
-                ].includes(info.mime)) continue;
+                ].includes(info.mime)) {
+                    continue;
+                }
 
-                const meta = info.extmetadata || {};
+                const metadata =
+                    info.extmetadata || {};
 
                 const license = plainText(
-                    meta.LicenseShortName?.value
+                    metadata.LicenseShortName?.value
                 );
 
                 if (!/^(CC BY|CC0|Public domain)/i
-                    .test(license)) continue;
+                    .test(license)) {
+                    continue;
+                }
+
+                const imageURL = safeURL(
+                    info.thumburl || info.url
+                );
+
+                if (!imageURL) continue;
 
                 return {
-                    url: info.thumburl || info.url,
-                    source: info.descriptionurl,
+
+                    url: imageURL,
+
+                    source: safeURL(
+                        info.descriptionurl
+                    ),
+
                     author: plainText(
-                        meta.Artist?.value ||
+                        metadata.Artist?.value ||
                         "Wikimedia Commons contributor"
                     ),
+
                     license: license,
-                    licenseURL: plainText(
-                        meta.LicenseUrl?.value
+
+                    licenseURL: safeURL(
+                        plainText(
+                            metadata.LicenseUrl?.value
+                        )
                     )
                 };
             }
@@ -1731,65 +3099,91 @@ async function fetchPhoto(spot) {
             return null;
 
         } catch (error) {
+
             return null;
         }
-    })();
+    });
 
-    photoCache.set(spot.id, promise);
+    photoCache.set(key,promise);
 
     return promise;
 }
 
-async function loadPhoto(container, spot) {
+function creditHTML(photo) {
+
+    const author = escapeHTML(photo.author);
+
+    const license = photo.licenseURL
+
+        ? `<a href="${escapeHTML(photo.licenseURL)}"
+              target="_blank"
+              rel="noopener noreferrer">
+              ${escapeHTML(photo.license)}
+           </a>`
+
+        : escapeHTML(photo.license);
+
+    const source = photo.source
+
+        ? `<a href="${escapeHTML(photo.source)}"
+              target="_blank"
+              rel="noopener noreferrer">
+              Wikimedia Commons
+           </a>`
+
+        : "Wikimedia Commons";
+
+    return `${author} · ${license} · ${source}`;
+}
+
+async function loadPhoto(container,spot) {
 
     const photo = await fetchPhoto(spot);
 
     const image = container.querySelector("img");
 
-    const credit = container.querySelector(".photo-credit");
+    const credit =
+        container.querySelector(".photo-credit");
 
-    if (!photo || !image) return;
+    if (!image) return;
+
+    if (!photo) {
+
+        image.src = placeholder(
+            spot,
+            t("photoUnavailable")
+        );
+
+        return;
+    }
 
     image.onerror = () => {
+
         image.onerror = null;
-        image.src = placeholder(spot);
+
+        image.src = placeholder(
+            spot,
+            t("photoUnavailable")
+        );
 
         if (credit) {
-            credit.textContent = t("photoUnavailable");
+            credit.textContent =
+                t("photoUnavailable");
         }
     };
 
     if (credit) {
-        const license = escapeHTML(photo.license);
-
-        const licenseURL =
-            /^https?:\/\//i.test(photo.licenseURL)
-            ? photo.licenseURL
-            : "";
-
-        const licenseLink = licenseURL
-            ? `<a href="${escapeHTML(licenseURL)}"
-                  target="_blank" rel="noopener">
-                  ${license}
-               </a>`
-            : license;
-
-        credit.innerHTML = `
-            ${escapeHTML(photo.author)}
-            · ${licenseLink}
-            · <a href="${escapeHTML(photo.source)}"
-                 target="_blank" rel="noopener">
-                 Wikimedia Commons
-               </a>`;
+        credit.innerHTML = creditHTML(photo);
     }
 
     image.src = photo.url;
 }
 
-/* Lazy loading for photos */
+/* Lazy photo loading */
 
 const photoObserver =
     "IntersectionObserver" in window
+
     ? new IntersectionObserver(entries => {
 
         entries.forEach(entry => {
@@ -1798,84 +3192,186 @@ const photoObserver =
 
             const card = entry.target;
 
-            const spot = spots.find(
-                s => s.id === Number(card.dataset.spot)
+            const spot = getSpot(
+                Number(card.dataset.photoSpot)
             );
 
-            if (spot) loadPhoto(card, spot);
+            if (spot) {
+                loadPhoto(card,spot);
+            }
 
             photoObserver.unobserve(card);
         });
 
-    }, {
-        rootMargin: "200px"
+    },{
+        rootMargin: "150px"
     })
+
     : null;
 
+function observePhoto(container,spot) {
+
+    container.dataset.photoSpot = spot.id;
+
+    if (photoObserver) {
+
+        photoObserver.observe(container);
+
+    } else {
+
+        loadPhoto(container,spot);
+    }
+}
+
+/* Hero image */
+
+async function loadHeroPhoto() {
+
+    const photo = await fetchPhoto(
+        getSpot(19)
+    );
+
+    if (!photo) return;
+
+    const image = new Image();
+
+    image.onload = () => {
+
+        $("hero").style.backgroundImage =
+            `linear-gradient(
+                rgba(15,45,35,.48),
+                rgba(15,45,35,.66)
+            ),url("${photo.url}")`;
+
+        $("hero-credit").hidden = false;
+
+        $("hero-credit").innerHTML =
+            creditHTML(photo);
+    };
+
+    image.src = photo.url;
+}
+
 /* =====================================
-   Leaflet map
+   Initialize Leaflet
 ===================================== */
 
 let map = null;
 let markerLayer = null;
+let routeLayer = null;
+
 const markers = {};
+const routeMarkers = {};
 
 if (typeof L !== "undefined") {
 
-    map = L.map("map", {
-        scrollWheelZoom: false
-    }).setView([43.22,144.49], 9);
+    map = L.map("map",{
+
+        scrollWheelZoom: false,
+
+        zoomControl: true
+
+    }).setView(
+        [43.22,144.49],
+        9
+    );
 
     L.tileLayer(
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+
+        "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+
         {
+
             maxZoom: 19,
+
             attribution:
                 '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }
+
     ).addTo(map);
 
     L.control.scale({
         imperial: false
     }).addTo(map);
 
-    markerLayer = L.layerGroup().addTo(map);
+    markerLayer =
+        L.layerGroup().addTo(map);
 
-} else {
-
-    document.getElementById("map").textContent =
-        "Map unavailable. Please check your internet connection.";
-
+    routeLayer =
+        L.layerGroup().addTo(map);
 }
+
+/* =====================================
+   Marker icons
+===================================== */
 
 function createIcon(spot) {
 
-    const cat = categories[spot.category];
+    const cat =
+        categories[spot.category];
 
     return L.divIcon({
+
         className: "custom-marker",
 
         html: `
             <div class="marker-pin"
                  style="background:${cat.color}">
+
                 <span>${cat.emoji}</span>
+
             </div>`,
 
         iconSize: [36,36],
+
         iconAnchor: [18,36],
+
         popupAnchor: [0,-35]
     });
 }
 
+function createRouteIcon(number,color) {
+
+    return L.divIcon({
+
+        className: "custom-marker",
+
+        html: `
+            <div class="route-pin"
+                 style="background:${color}">
+
+                ${number}
+
+            </div>`,
+
+        iconSize: [34,34],
+
+        iconAnchor: [17,17],
+
+        popupAnchor: [0,-17]
+    });
+}
+
 /* =====================================
-   Map popups
+   Map popup
 ===================================== */
 
-function createPopup(spot) {
+function createPopup(spot,stopNumber=null) {
 
-    const cat = categories[spot.category];
+    const cat =
+        categories[spot.category];
 
-    const el = document.createElement("div");
+    const el =
+        document.createElement("div");
+
+    const stopLabel = stopNumber !== null
+
+        ? `<div class="area-label">
+               ${lang === "ja" ? "訪問順" : "Stop"}
+               ${stopNumber}
+           </div>`
+
+        : "";
 
     el.innerHTML = `
 
@@ -1889,94 +3385,137 @@ function createPopup(spot) {
 
             <span class="badge"
                   style="background:${cat.color}">
+
                 ${cat.emoji} ${cat[lang]}
+
             </span>
 
-            <h3>${escapeHTML(spot.name[lang])}</h3>
+            ${stopLabel}
+
+            <h3>
+                ${escapeHTML(spot.name[lang])}
+            </h3>
 
             <div class="area-label">
+
                 📍 ${areas[spot.area][lang]}
+
             </div>
 
-            <p>${escapeHTML(spot.description[lang])}</p>
+            <p>
+                ${escapeHTML(spot.description[lang])}
+            </p>
 
             <div class="recommendation">
-                <strong>${t("recommended")}</strong><br>
+
+                <strong>${t("recommended")}</strong>
+
+                <br>
+
                 ${escapeHTML(spot.recommendation[lang])}
+
             </div>
 
             <div class="season-info">
-                <strong>${t("season")}</strong><br>
+
+                <strong>${t("season")}</strong>
+
+                <br>
+
                 ${seasonText(spot)}
+
             </div>
 
             <a class="direction-link"
                href="${mapsURL(spot)}"
-               target="_blank" rel="noopener">
+               target="_blank"
+               rel="noopener noreferrer">
+
                 ${t("directions")}
+
             </a>
 
         </div>
     `;
 
-    loadPhoto(el, spot);
+    loadPhoto(el,spot);
 
     return el;
 }
 
 /* =====================================
-   Filtering
+   Tourism spot filtering
 ===================================== */
 
-const searchInput =
-    document.getElementById("search");
+const searchInput = $("search");
 
-const areaFilter =
-    document.getElementById("area-filter");
+const areaFilter = $("area-filter");
 
-const seasonFilter =
-    document.getElementById("season-filter");
+const seasonFilter = $("season-filter");
 
 function getFilteredSpots() {
 
     const keyword =
         searchInput.value.trim().toLowerCase();
 
-    const selectedArea = areaFilter.value;
+    const selectedArea =
+        areaFilter.value || "all";
 
-    const selectedSeason = seasonFilter.value;
+    const selectedSeason =
+        seasonFilter.value || "all";
 
     return spots.filter(spot => {
 
         const categoryMatch =
+
             activeCategory === "all" ||
+
             activeCategory === spot.category;
 
         const areaMatch =
+
             selectedArea === "all" ||
+
             selectedArea === spot.area;
 
         const seasonMatch =
+
             selectedSeason === "all" ||
+
             spot.seasons.includes("year") ||
+
             spot.seasons.includes(selectedSeason);
 
         const searchText = [
+
             spot.name.en,
+
             spot.name.ja,
+
             spot.description.en,
+
             spot.description.ja,
+
             spot.recommendation.en,
+
             spot.recommendation.ja,
+
             areas[spot.area].en,
+
             areas[spot.area].ja,
+
             categories[spot.category].en,
+
             categories[spot.category].ja
+
         ].join(" ").toLowerCase();
 
         const searchMatch =
+
             keyword.split(/\s+/)
-                .every(word => searchText.includes(word));
+                .every(word =>
+                    searchText.includes(word)
+                );
 
         return categoryMatch &&
                areaMatch &&
@@ -1986,12 +3525,58 @@ function getFilteredSpots() {
 }
 
 /* =====================================
-   Render markers
+   Map mode control
 ===================================== */
 
-function renderMarkers(filtered, fitMap = true) {
+function updateMapMode() {
+
+    $("map-route-banner").classList.toggle(
+        "visible",
+        activeRoute !== null
+    );
+
+    if (activeRoute) {
+
+        $("map-route-name").textContent =
+
+            "🧭 " +
+            activeRoute.title[lang];
+
+        $("map-note").textContent =
+            t("routeMapNote");
+
+    } else {
+
+        $("map-note").textContent =
+            t("mapNote");
+    }
+
+    $("exit-route-button").textContent =
+        t("exitRoute");
+}
+
+function clearRouteMap() {
+
+    if (routeLayer) {
+        routeLayer.clearLayers();
+    }
+
+    Object.keys(routeMarkers).forEach(
+        key => delete routeMarkers[key]
+    );
+}
+
+/* =====================================
+   Render normal map markers
+===================================== */
+
+function renderMarkers(filtered,fitMap=true) {
 
     if (!map || !markerLayer) return;
+
+    map.closePopup();
+
+    clearRouteMap();
 
     markerLayer.clearLayers();
 
@@ -2004,28 +3589,43 @@ function renderMarkers(filtered, fitMap = true) {
     filtered.forEach(spot => {
 
         const marker = L.marker(
+
             [spot.lat,spot.lng],
+
             {
+
                 icon: createIcon(spot),
+
                 title: spot.name[lang],
+
                 alt: spot.name[lang],
+
                 keyboard: true,
+
                 riseOnHover: true
             }
         );
 
         marker.bindPopup(
+
             () => createPopup(spot),
+
             {
+
                 maxWidth: 300,
+
                 autoPanPadding: [15,15]
             }
         );
 
         marker.bindTooltip(
+
             escapeHTML(spot.name[lang]),
+
             {
+
                 direction: "top",
+
                 offset: [0,-32]
             }
         );
@@ -2034,17 +3634,699 @@ function renderMarkers(filtered, fitMap = true) {
 
         markers[spot.id] = marker;
 
-        coordinates.push([spot.lat,spot.lng]);
-
+        coordinates.push(
+            [spot.lat,spot.lng]
+        );
     });
 
     if (fitMap && coordinates.length) {
 
-        map.fitBounds(coordinates, {
-            padding: [40,40],
-            maxZoom: 14
+        map.fitBounds(
+            coordinates,
+            {
+
+                padding: [45,45],
+
+                maxZoom: 15
+            }
+        );
+    }
+}
+
+/* =====================================
+   Display route on map
+
+   Route lines represent stop order,
+   not actual road geometry.
+===================================== */
+
+const dayColors = [
+    "#28664d",
+    "#368ab5",
+    "#d18b3f"
+];
+
+function renderRouteMap(route,scroll=true) {
+
+    activeRoute = route;
+
+    updateMapMode();
+
+    updateRouteSelection();
+
+    if (!map) return;
+
+    map.closePopup();
+
+    markerLayer.clearLayers();
+
+    clearRouteMap();
+
+    Object.keys(markers).forEach(
+        key => delete markers[key]
+    );
+
+    const allCoordinates = [];
+
+    let stopNumber = 0;
+
+    route.days.forEach((day,dayIndex) => {
+
+        const coordinates = [];
+
+        const color = route.days.length > 1
+
+            ? dayColors[
+                dayIndex % dayColors.length
+              ]
+
+            : route.color;
+
+        day.stops.forEach(id => {
+
+            const spot = getSpot(id);
+
+            if (!spot) return;
+
+            stopNumber++;
+
+            const currentNumber = stopNumber;
+
+            const position =
+                [spot.lat,spot.lng];
+
+            const marker = L.marker(
+
+                position,
+
+                {
+
+                    icon: createRouteIcon(
+                        currentNumber,
+                        color
+                    ),
+
+                    title:
+                        `${currentNumber}. ${spot.name[lang]}`,
+
+                    keyboard: true
+                }
+            );
+
+            marker.bindPopup(
+
+                () => createPopup(
+                    spot,
+                    currentNumber
+                ),
+
+                {
+
+                    maxWidth: 300,
+
+                    autoPanPadding: [15,15]
+                }
+            );
+
+            marker.bindTooltip(
+                `${currentNumber}. ${escapeHTML(spot.name[lang])}`
+            );
+
+            marker.addTo(routeLayer);
+
+            routeMarkers[currentNumber] = marker;
+
+            coordinates.push(position);
+
+            allCoordinates.push(position);
+        });
+
+        if (coordinates.length > 1) {
+
+            L.polyline(
+
+                coordinates,
+
+                {
+
+                    color: color,
+
+                    weight: 4,
+
+                    opacity: 0.85,
+
+                    dashArray: "8 9",
+
+                    lineJoin: "round"
+                }
+
+            ).addTo(routeLayer);
+        }
+    });
+
+    if (allCoordinates.length) {
+
+        map.fitBounds(
+
+            allCoordinates,
+
+            {
+
+                padding: [55,55],
+
+                maxZoom: 15
+            }
+        );
+    }
+
+    if (scroll) {
+
+        $("explore").scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "start"
         });
     }
+
+    setTimeout(() => {
+
+        map.invalidateSize();
+
+    },250);
+}
+
+/* =====================================
+   Exit recommended route
+===================================== */
+
+function exitRoute() {
+
+    activeRoute = null;
+
+    clearRouteMap();
+
+    updateMapMode();
+
+    updateRouteSelection();
+
+    renderResults();
+}
+
+function resetFilters() {
+
+    activeRoute = null;
+
+    activeCategory = "all";
+
+    searchInput.value = "";
+
+    areaFilter.value = "all";
+
+    seasonFilter.value = "all";
+
+    updateCategoryButtons();
+
+    updateMapMode();
+
+    updateRouteSelection();
+
+    renderResults();
+}
+
+/* =====================================
+   Google Maps route URLs
+
+   Boat-only stops are excluded from
+   walking and driving navigation.
+===================================== */
+
+function routeGoogleURL(route,dayIndex) {
+
+    const day = route.days[dayIndex];
+
+    const ids =
+        day.navigationStops || day.stops;
+
+    const destinations = ids
+
+        .map(id => getSpot(id))
+
+        .filter(Boolean)
+
+        .map(navigationQuery);
+
+    if (destinations.length < 2) {
+
+        return mapsURL(
+            getSpot(ids[0])
+        );
+    }
+
+    const params = new URLSearchParams({
+
+        api: "1",
+
+        origin: destinations[0],
+
+        destination:
+            destinations[destinations.length - 1],
+
+        travelmode:
+            day.mode || route.travelMode
+    });
+
+    if (destinations.length > 2) {
+
+        params.set(
+
+            "waypoints",
+
+            destinations
+                .slice(1,-1)
+                .join("|")
+        );
+    }
+
+    return "https://www.google.com/maps/dir/?" +
+        params.toString();
+}
+
+/* =====================================
+   Render recommended route cards
+===================================== */
+
+function renderRoutes() {
+
+    const grid = $("route-grid");
+
+    grid.innerHTML = "";
+
+    routes.forEach(route => {
+
+        const cover = getSpot(route.cover);
+
+        const card =
+            document.createElement("article");
+
+        card.className = "route-card";
+
+        card.dataset.routeId = route.id;
+
+        card.innerHTML = `
+
+            <img class="route-image"
+                 src="${placeholder(cover)}"
+                 alt="${escapeHTML(route.title[lang])}"
+                 loading="lazy">
+
+            <span class="photo-credit"></span>
+
+            <div class="route-card-body">
+
+                <div class="route-number">
+
+                    ${t("route")}
+                    ${String(route.id).padStart(2,"0")}
+
+                </div>
+
+                <h3>
+                    ${escapeHTML(route.title[lang])}
+                </h3>
+
+                <div class="route-meta">
+
+                    <span>
+                        🕒 ${route.duration[lang]}
+                    </span>
+
+                    <span>
+                        ${route.travelMode === "walking"
+                            ? "🚶"
+                            : "🚗"}
+
+                        ${route.transport[lang]}
+                    </span>
+
+                    <span>
+                        📅 ${seasonText(route)}
+                    </span>
+
+                </div>
+
+                <p>
+                    ${escapeHTML(route.description[lang])}
+                </p>
+
+                <button class="route-button">
+
+                    ${t("viewRoute")} →
+
+                </button>
+
+            </div>
+        `;
+
+        card.querySelector("button")
+
+            .addEventListener("click",() => {
+
+                selectRoute(route.id);
+            });
+
+        grid.appendChild(card);
+
+        observePhoto(card,cover);
+    });
+
+    updateRouteSelection();
+}
+
+function updateRouteSelection() {
+
+    document
+        .querySelectorAll(".route-card")
+
+        .forEach(card => {
+
+            card.classList.toggle(
+
+                "selected",
+
+                activeRoute !== null &&
+
+                Number(card.dataset.routeId)
+                    === activeRoute.id
+            );
+        });
+}
+
+/* =====================================
+   Select and display route
+===================================== */
+
+function selectRoute(id) {
+
+    const route =
+        routes.find(r => r.id === id);
+
+    if (!route) return;
+
+    activeRoute = route;
+
+    renderRouteDetail(route);
+
+    renderRouteMap(route,false);
+
+    $("route-detail").scrollIntoView({
+
+        behavior: "smooth",
+
+        block: "start"
+    });
+}
+
+/* =====================================
+   Route itinerary
+===================================== */
+
+function renderRouteDetail(route) {
+
+    const detail = $("route-detail");
+
+    detail.classList.add("visible");
+
+    let stopNumber = 0;
+
+    let dayHTML = "";
+
+    route.days.forEach((day,dayIndex) => {
+
+        const color = route.days.length > 1
+
+            ? dayColors[
+                dayIndex % dayColors.length
+              ]
+
+            : route.color;
+
+        const dayLabel = lang === "ja"
+
+            ? `${dayIndex + 1}${t("day")}`
+
+            : `${t("day")} ${dayIndex + 1}`;
+
+        dayHTML += `
+
+            <h3 class="day-heading">
+
+                ${dayLabel}
+
+                ${day.title
+                    ? " — " +
+                      escapeHTML(day.title[lang])
+                    : ""}
+
+            </h3>
+
+            <div class="timeline">
+        `;
+
+        day.stops.forEach(id => {
+
+            const spot = getSpot(id);
+
+            if (!spot) return;
+
+            stopNumber++;
+
+            const cat =
+                categories[spot.category];
+
+            dayHTML += `
+
+                <div class="timeline-item">
+
+                    <div class="timeline-number"
+                         style="background:${color}">
+
+                        ${stopNumber}
+
+                    </div>
+
+                    <div class="timeline-content">
+
+                        <span class="area-label">
+
+                            ${cat.emoji}
+
+                            ${cat[lang]}
+
+                            ·
+
+                            ${areas[spot.area][lang]}
+
+                        </span>
+
+                        <h4>
+
+                            ${escapeHTML(
+                                spot.name[lang]
+                            )}
+
+                        </h4>
+
+                        <p>
+
+                            ${escapeHTML(
+                                spot.description[lang]
+                            )}
+
+                        </p>
+
+                        <p>
+
+                            <strong>⭐</strong>
+
+                            ${escapeHTML(
+                                spot.recommendation[lang]
+                            )}
+
+                        </p>
+
+                        <button
+                            type="button"
+                            data-route-stop="${stopNumber}"
+                            data-spot-id="${id}">
+
+                            ${t("explore")}
+
+                        </button>
+
+                    </div>
+
+                </div>
+            `;
+        });
+
+        dayHTML += `
+
+            </div>
+
+            ${day.boat
+
+                ? `<p class="route-notice">
+                       ${t("boatNotice")}
+                   </p>`
+
+                : ""
+            }
+
+            <a class="secondary-button"
+               href="${escapeHTML(
+                   routeGoogleURL(route,dayIndex)
+               )}"
+               target="_blank"
+               rel="noopener noreferrer">
+
+                ${t("routeGoogle")} ↗
+
+            </a>
+        `;
+    });
+
+    detail.innerHTML = `
+
+        <div class="route-number">
+
+            ${t("selectedRoute")}
+
+        </div>
+
+        <h2>
+
+            ${escapeHTML(route.title[lang])}
+
+        </h2>
+
+        <div class="route-meta">
+
+            <span>
+                🕒 ${route.duration[lang]}
+            </span>
+
+            <span>
+                🚘 ${route.transport[lang]}
+            </span>
+
+            <span>
+                📅 ${seasonText(route)}
+            </span>
+
+        </div>
+
+        <p>
+
+            ${escapeHTML(route.description[lang])}
+
+        </p>
+
+        <div class="route-actions">
+
+            <button class="primary-button"
+                    id="show-route-map">
+
+                🗺️ ${t("showRoute")}
+
+            </button>
+
+        </div>
+
+        <h3>${t("itinerary")}</h3>
+
+        <p>${t("routeHint")}</p>
+
+        ${dayHTML}
+
+        <div class="recommendation"
+             style="margin-top:25px">
+
+            <strong>${t("recommended")}</strong>
+
+            <br>
+
+            ${escapeHTML(route.tip[lang])}
+
+        </div>
+
+        <div class="route-notice"
+             style="margin-top:15px">
+
+            ${t("mapsNotice")}
+
+        </div>
+
+    `;
+
+    $("show-route-map")
+        .addEventListener("click",() => {
+
+            renderRouteMap(route,true);
+        });
+
+    detail.querySelectorAll(
+        "[data-route-stop]"
+    ).forEach(button => {
+
+        button.addEventListener("click",() => {
+
+            const number =
+                Number(button.dataset.routeStop);
+
+            const spot = getSpot(
+                Number(button.dataset.spotId)
+            );
+
+            if (!spot) return;
+
+            if (!map) {
+
+                window.open(
+                    mapsURL(spot),
+                    "_blank",
+                    "noopener,noreferrer"
+                );
+
+                return;
+            }
+
+            if (
+                !activeRoute ||
+                activeRoute.id !== route.id
+            ) {
+
+                renderRouteMap(route,false);
+            }
+
+            $("explore").scrollIntoView({
+
+                behavior: "smooth",
+
+                block: "start"
+            });
+
+            map.setView(
+                [spot.lat,spot.lng],
+                15
+            );
+
+            if (routeMarkers[number]) {
+
+                routeMarkers[number].openPopup();
+            }
+        });
+    });
 }
 
 /* =====================================
@@ -2053,31 +4335,42 @@ function renderMarkers(filtered, fitMap = true) {
 
 function renderCards(filtered) {
 
-    const grid = document.getElementById("spot-list");
+    const grid = $("spot-list");
 
     if (photoObserver) {
-        photoObserver.disconnect();
+
+        grid.querySelectorAll(
+            "[data-photo-spot]"
+        ).forEach(card => {
+
+            photoObserver.unobserve(card);
+        });
     }
 
     grid.innerHTML = "";
 
     if (!filtered.length) {
+
         grid.innerHTML = `
+
             <div class="empty-state">
+
                 ${t("noResults")}
+
             </div>`;
+
         return;
     }
 
     filtered.forEach(spot => {
 
-        const cat = categories[spot.category];
+        const cat =
+            categories[spot.category];
 
-        const card = document.createElement("article");
+        const card =
+            document.createElement("article");
 
         card.className = "spot-card";
-
-        card.dataset.spot = spot.id;
 
         card.innerHTML = `
 
@@ -2090,84 +4383,159 @@ function renderCards(filtered) {
             <div class="spot-body">
 
                 <div>
+
                     <span class="badge"
                           style="background:${cat.color}">
+
                         ${cat.emoji} ${cat[lang]}
+
                     </span>
+
                 </div>
 
-                <h3>${escapeHTML(spot.name[lang])}</h3>
+                <h3>
+
+                    ${escapeHTML(spot.name[lang])}
+
+                </h3>
 
                 <span class="area-label">
+
                     📍 ${areas[spot.area][lang]}
+
                 </span>
 
-                <p>${escapeHTML(spot.description[lang])}</p>
+                <p>
+
+                    ${escapeHTML(
+                        spot.description[lang]
+                    )}
+
+                </p>
 
                 <div class="recommendation">
-                    <strong>${t("recommended")}</strong><br>
-                    ${escapeHTML(spot.recommendation[lang])}
+
+                    <strong>
+
+                        ${t("recommended")}
+
+                    </strong>
+
+                    <br>
+
+                    ${escapeHTML(
+                        spot.recommendation[lang]
+                    )}
+
                 </div>
 
                 <p class="season-info">
-                    ${t("season")}: ${seasonText(spot)}
+
+                    ${t("season")}:
+
+                    ${seasonText(spot)}
+
                 </p>
 
                 <button class="card-action">
+
                     ${t("explore")}
+
                 </button>
 
             </div>
         `;
 
         card.querySelector("button")
-            .addEventListener("click", () => {
 
-                if (!map) {
-                    window.open(
-                        mapsURL(spot),
-                        "_blank",
-                        "noopener"
-                    );
-                    return;
-                }
+            .addEventListener("click",() => {
 
-                document.getElementById("map")
-                    .scrollIntoView({
-                        behavior: "smooth",
-                        block: "center"
-                    });
-
-                map.setView(
-                    [spot.lat,spot.lng],
-                    15
-                );
-
-                if (markers[spot.id]) {
-                    markers[spot.id].openPopup();
-                }
+                showSpotOnMap(spot);
             });
 
         grid.appendChild(card);
 
-        if (photoObserver) {
-            photoObserver.observe(card);
-        } else {
-            loadPhoto(card,spot);
-        }
-
+        observePhoto(card,spot);
     });
 }
 
-function renderResults(fitMap = true) {
+/* =====================================
+   Show an individual spot
+===================================== */
 
-    const filtered = getFilteredSpots();
+function showSpotOnMap(spot) {
 
-    document.getElementById("result-count")
-        .textContent =
-            `${filtered.length} ${t("results")}`;
+    if (!map) {
 
-    renderMarkers(filtered, fitMap);
+        window.open(
+
+            mapsURL(spot),
+
+            "_blank",
+
+            "noopener,noreferrer"
+        );
+
+        return;
+    }
+
+    if (activeRoute) {
+
+        exitRoute();
+    }
+
+    if (!markers[spot.id]) {
+
+        resetFilters();
+    }
+
+    $("explore").scrollIntoView({
+
+        behavior: "smooth",
+
+        block: "start"
+    });
+
+    map.setView(
+
+        [spot.lat,spot.lng],
+
+        15
+    );
+
+    if (markers[spot.id]) {
+
+        markers[spot.id].openPopup();
+    }
+}
+
+/* =====================================
+   Update results
+===================================== */
+
+function renderResults(fitMap=true) {
+
+    const filtered =
+        getFilteredSpots();
+
+    $("result-count").textContent =
+
+        `${filtered.length} ${t("results")}`;
+
+    if (activeRoute) {
+
+        renderRouteMap(
+            activeRoute,
+            false
+        );
+
+    } else {
+
+        renderMarkers(
+            filtered,
+            fitMap
+        );
+    }
 
     renderCards(filtered);
 }
@@ -2179,47 +4547,65 @@ function renderResults(fitMap = true) {
 function renderCategories() {
 
     const container =
-        document.getElementById("category-buttons");
+        $("category-buttons");
 
     container.innerHTML = "";
 
-    const allButton = document.createElement("button");
+    const allButton =
+        document.createElement("button");
 
-    allButton.className = "category-button";
+    allButton.className =
+        "category-button";
 
-    allButton.textContent = "🗺️ " + t("all");
+    allButton.textContent =
+        "🗺️ " + t("all");
 
     allButton.dataset.category = "all";
 
     container.appendChild(allButton);
 
-    Object.entries(categories).forEach(([key,cat]) => {
+    Object.entries(categories)
 
-        const button = document.createElement("button");
+        .forEach(([key,cat]) => {
 
-        button.className = "category-button";
+            const button =
+                document.createElement("button");
 
-        button.dataset.category = key;
+            button.className =
+                "category-button";
 
-        button.style.setProperty(
-            "--button-color",cat.color
-        );
+            button.dataset.category = key;
 
-        button.textContent =
-            `${cat.emoji} ${cat[lang]}`;
+            button.style.setProperty(
 
-        container.appendChild(button);
-    });
+                "--button-color",
+
+                cat.color
+            );
+
+            button.textContent =
+
+                `${cat.emoji} ${cat[lang]}`;
+
+            container.appendChild(button);
+        });
 
     container.querySelectorAll("button")
+
         .forEach(button => {
 
-            button.addEventListener("click", () => {
+            button.addEventListener("click",() => {
+
+                activeRoute = null;
 
                 activeCategory =
                     button.dataset.category;
 
                 updateCategoryButtons();
+
+                updateMapMode();
+
+                updateRouteSelection();
 
                 renderResults();
             });
@@ -2230,169 +4616,288 @@ function renderCategories() {
 
 function updateCategoryButtons() {
 
-    document.querySelectorAll(".category-button")
-        .forEach(button => {
+    document.querySelectorAll(
+        ".category-button"
+    ).forEach(button => {
 
-            const selected =
-                button.dataset.category === activeCategory;
+        const selected =
 
-            button.classList.toggle("active",selected);
+            button.dataset.category ===
+            activeCategory;
 
-            button.setAttribute(
-                "aria-pressed",
-                String(selected)
-            );
-        });
+        button.classList.toggle(
+            "active",
+            selected
+        );
+
+        button.setAttribute(
+            "aria-pressed",
+            String(selected)
+        );
+    });
 }
 
 /* =====================================
-   Area and season selections
+   Area and season selectors
 ===================================== */
 
 function renderSelects() {
 
-    const oldArea = areaFilter.value || "all";
+    const oldArea =
+        areaFilter.value || "all";
 
-    const oldSeason = seasonFilter.value || "all";
+    const oldSeason =
+        seasonFilter.value || "all";
 
-    areaFilter.innerHTML =
-        `<option value="all">${t("allAreas")}</option>`;
+    areaFilter.innerHTML = `
 
-    Object.entries(areas).forEach(([key,area]) => {
+        <option value="all">
 
-        areaFilter.add(
-            new Option(area[lang],key)
-        );
-    });
+            ${t("allAreas")}
 
-    seasonFilter.innerHTML =
-        `<option value="all">${t("allSeasons")}</option>`;
+        </option>`;
+
+    Object.entries(areas)
+
+        .forEach(([key,area]) => {
+
+            areaFilter.add(
+
+                new Option(
+                    area[lang],
+                    key
+                )
+            );
+        });
+
+    seasonFilter.innerHTML = `
+
+        <option value="all">
+
+            ${t("allSeasons")}
+
+        </option>`;
 
     ["spring","summer","autumn","winter"]
+
         .forEach(key => {
 
             seasonFilter.add(
-                new Option(seasons[key][lang],key)
+
+                new Option(
+                    seasons[key][lang],
+                    key
+                )
             );
         });
 
     areaFilter.value = oldArea;
 
     seasonFilter.value = oldSeason;
+
+    searchInput.setAttribute(
+        "aria-label",
+        t("search")
+    );
+
+    areaFilter.setAttribute(
+        "aria-label",
+        t("allAreas")
+    );
+
+    seasonFilter.setAttribute(
+        "aria-label",
+        t("allSeasons")
+    );
 }
+
+/* =====================================
+   Legend
+===================================== */
 
 function renderLegend() {
 
-    document.getElementById("legend").innerHTML =
-        Object.values(categories).map(cat => `
+    $("legend").innerHTML =
+
+        Object.values(categories)
+
+        .map(cat => `
 
             <span>
+
                 <span class="legend-dot"
                       style="background:${cat.color}">
                 </span>
+
                 ${cat[lang]}
+
             </span>
 
         `).join("");
 }
 
 /* =====================================
-   Travel tips
+   Useful travel information
 ===================================== */
 
 const travelTips = [
 
     {
-        icon:"🚗",
-        title:{
-            en:"Getting Around",
-            ja:"移動手段"
+        icon: "🚗",
+
+        title: {
+            en: "Getting Around",
+            ja: "移動手段"
         },
-        text:{
-            en:"Many rural attractions are easier to reach by rental car. Check public transport schedules carefully.",
-            ja:"郊外の観光地はレンタカーが便利です。公共交通機関の時刻表を事前に確認しましょう。"
+
+        text: {
+            en: "Many rural attractions are easier to reach by rental car. Check public transport schedules and allow plenty of driving time.",
+            ja: "郊外の観光地はレンタカーが便利です。公共交通機関の時刻表を確認し、移動時間に余裕を持ちましょう。"
         }
     },
 
     {
-        icon:"🧥",
-        title:{
-            en:"Weather & Clothing",
-            ja:"気候と服装"
+        icon: "🧥",
+
+        title: {
+            en: "Weather & Clothing",
+            ja: "気候と服装"
         },
-        text:{
-            en:"Kushiro can be cool even in summer. Bring layers, a windproof jacket and warm clothing in winter.",
-            ja:"釧路は夏でも涼しい日があります。重ね着できる服や防風着、冬は十分な防寒着を用意しましょう。"
+
+        text: {
+            en: "Kushiro can be cool even in summer. Bring layers, a windproof jacket and warm clothing in winter.",
+            ja: "釧路は夏でも涼しい日があります。重ね着できる服や防風着、冬は十分な防寒着を用意しましょう。"
         }
     },
 
     {
-        icon:"🐻",
-        title:{
-            en:"Respect Wildlife",
-            ja:"野生動物への配慮"
+        icon: "🐻",
+
+        title: {
+            en: "Respect Wildlife",
+            ja: "野生動物への配慮"
         },
-        text:{
-            en:"Never feed or approach wild animals. Follow local bear safety guidance and stay on designated trails.",
-            ja:"野生動物に餌を与えたり近づいたりしないでください。ヒグマへの注意事項を守り、指定された遊歩道を利用しましょう。"
+
+        text: {
+            en: "Never feed or approach wild animals. Follow bear safety guidance and stay on designated trails.",
+            ja: "野生動物に餌を与えたり近づいたりしないでください。ヒグマへの注意事項を守り、指定された遊歩道を利用しましょう。"
         }
     },
 
     {
-        icon:"🍣",
-        title:{
-            en:"Enjoy Local Food",
-            ja:"地元の食を楽しむ"
+        icon: "🍣",
+
+        title: {
+            en: "Enjoy Local Food",
+            ja: "地元の食を楽しむ"
         },
-        text:{
-            en:"Try seafood, oysters, ramen, cheese and regional specialties. Ask restaurants about food allergies.",
-            ja:"海産物、牡蠣、ラーメン、チーズなどを味わいましょう。アレルギーについては飲食店に確認してください。"
+
+        text: {
+            en: "Try seafood, oysters, ramen, cheese and regional specialties. Ask restaurants about food allergies and dietary requirements.",
+            ja: "海産物、牡蠣、ラーメン、チーズなどを味わいましょう。アレルギーや食事制限については飲食店に確認してください。"
         }
     },
 
     {
-        icon:"♨️",
-        title:{
-            en:"Hot Spring Etiquette",
-            ja:"温泉のマナー"
+        icon: "♨️",
+
+        title: {
+            en: "Hot Spring Etiquette",
+            ja: "温泉のマナー"
         },
-        text:{
-            en:"Wash before entering the bath. Follow each facility's rules regarding towels, tattoos and bathing.",
-            ja:"入浴前に身体を洗い、タオルやタトゥーなどについては各施設のルールを守りましょう。"
+
+        text: {
+            en: "Wash before entering the bath. Follow each facility's rules regarding towels, tattoos and bathing.",
+            ja: "入浴前に身体を洗い、タオルやタトゥーなどについては各施設のルールを守りましょう。"
         }
     },
 
     {
-        icon:"📅",
-        title:{
-            en:"Plan Ahead",
-            ja:"事前の計画"
+        icon: "📅",
+
+        title: {
+            en: "Plan Ahead",
+            ja: "事前の計画"
         },
-        text:{
-            en:"Check seasonal closures, road restrictions and activity reservations before traveling.",
-            ja:"季節休業、道路の通行規制、体験の予約などを事前に確認しましょう。"
+
+        text: {
+            en: "Check seasonal closures, road restrictions and activity reservations before traveling.",
+            ja: "季節休業、道路の通行規制、体験の予約などを事前に確認しましょう。"
+        }
+    },
+
+    {
+        icon: "❄️",
+
+        title: {
+            en: "Winter Driving",
+            ja: "冬のドライブ"
+        },
+
+        text: {
+            en: "Winter roads can be icy and visibility may be poor. Use a suitably equipped vehicle and adjust plans to weather conditions.",
+            ja: "冬は路面の凍結や視界不良があります。冬道に対応した車を使用し、天候に合わせて計画を変更しましょう。"
+        }
+    },
+
+    {
+        icon: "💴",
+
+        title: {
+            en: "Money & Payments",
+            ja: "支払い方法"
+        },
+
+        text: {
+            en: "Carry some Japanese yen in cash, as small rural shops may not accept all credit cards.",
+            ja: "地方の小さな店舗では利用できるカードが限られる場合があります。日本円の現金も用意しましょう。"
+        }
+    },
+
+    {
+        icon: "📱",
+
+        title: {
+            en: "Internet & Maps",
+            ja: "インターネットと地図"
+        },
+
+        text: {
+            en: "Mobile reception can be limited in remote areas. Save important directions and travel information before leaving.",
+            ja: "山間部では携帯電話の電波が届きにくい場合があります。出発前に経路や旅行情報を保存しましょう。"
         }
     }
 ];
 
 function renderTravelTips() {
 
-    document.getElementById("travel-grid")
-        .innerHTML = travelTips.map(tip => `
+    $("travel-grid").innerHTML =
 
-        <article class="travel-card">
+        travelTips.map(tip => `
 
-            <div class="travel-icon">
-                ${tip.icon}
-            </div>
+            <article class="travel-card">
 
-            <h3>${tip.title[lang]}</h3>
+                <div class="travel-icon">
 
-            <p>${tip.text[lang]}</p>
+                    ${tip.icon}
 
-        </article>
+                </div>
 
-    `).join("");
+                <h3>
+
+                    ${tip.title[lang]}
+
+                </h3>
+
+                <p>
+
+                    ${tip.text[lang]}
+
+                </p>
+
+            </article>
+
+        `).join("");
 }
 
 /* =====================================
@@ -2403,52 +4908,114 @@ function updateText() {
 
     document.documentElement.lang = lang;
 
-    document.getElementById("hero-subtitle")
-        .innerHTML = t("subtitle");
+    $("hero-subtitle").innerHTML =
+        t("subtitle");
 
     const textElements = {
 
-        "hero-button":"heroButton",
-        "intro-title":"introTitle",
-        "intro-text":"introText",
-        "stat-spots":"spots",
-        "stat-categories":"categories",
-        "stat-areas":"areas",
-        "reset-button":"reset",
-        "map-instruction":"instruction",
-        "map-note":"mapNote",
-        "spots-heading":"heading",
-        "travel-heading":"travel",
-        "footer-text":"footer",
-        "footer-note":"footerNote"
+        "nav-map": "navMap",
+
+        "nav-routes": "navRoutes",
+
+        "nav-spots": "navSpots",
+
+        "nav-travel": "navTravel",
+
+        "hero-map": "heroMap",
+
+        "hero-routes": "heroRoutes",
+
+        "intro-title": "introTitle",
+
+        "intro-text": "introText",
+
+        "stat-spots": "spots",
+
+        "stat-categories": "categories",
+
+        "stat-areas": "areas",
+
+        "stat-routes": "routes",
+
+        "map-heading": "mapHeading",
+
+        "reset-button": "reset",
+
+        "map-instruction": "instruction",
+
+        "map-note": "mapNote",
+
+        "routes-heading": "routesHeading",
+
+        "routes-description":
+            "routesDescription",
+
+        "spots-heading": "heading",
+
+        "spots-description":
+            "spotsDescription",
+
+        "travel-heading": "travel",
+
+        "footer-text": "footer",
+
+        "footer-note": "footerNote",
+
+        "exit-route-button": "exitRoute"
     };
 
     Object.entries(textElements)
+
         .forEach(([id,key]) => {
 
-            document.getElementById(id)
-                .textContent = t(key);
+            $(id).textContent = t(key);
         });
 
-    searchInput.placeholder = t("search");
+    searchInput.placeholder =
+        t("search");
 
-    document.getElementById("spot-count")
-        .textContent = spots.length;
+    $("spot-count").textContent =
+        spots.length;
 
-    document.getElementById("lang-en")
-        .classList.toggle("active",lang === "en");
+    $("route-count").textContent =
+        routes.length;
 
-    document.getElementById("lang-ja")
-        .classList.toggle("active",lang === "ja");
+    $("lang-en").classList.toggle(
+        "active",
+        lang === "en"
+    );
 
-    document.getElementById("lang-en")
-        .setAttribute("aria-pressed",String(lang === "en"));
+    $("lang-ja").classList.toggle(
+        "active",
+        lang === "ja"
+    );
 
-    document.getElementById("lang-ja")
-        .setAttribute("aria-pressed",String(lang === "ja"));
+    $("lang-en").setAttribute(
+        "aria-pressed",
+        String(lang === "en")
+    );
+
+    $("lang-ja").setAttribute(
+        "aria-pressed",
+        String(lang === "ja")
+    );
+
+    if (!map) {
+
+        $("map").textContent =
+            t("mapUnavailable");
+
+        $("map").style.padding = "30px";
+    }
+
+    updateMapMode();
 }
 
 function setLanguage(newLanguage) {
+
+    if (!translations[newLanguage]) {
+        return;
+    }
 
     lang = newLanguage;
 
@@ -2460,60 +5027,105 @@ function setLanguage(newLanguage) {
 
     renderLegend();
 
+    renderRoutes();
+
     renderTravelTips();
+
+    if (activeRoute) {
+
+        renderRouteDetail(activeRoute);
+
+    } else {
+
+        const detail = $("route-detail");
+
+        detail.classList.remove("visible");
+
+        detail.innerHTML = "";
+    }
 
     renderResults(false);
 }
 
 /* =====================================
-   Events
+   Filter events
 ===================================== */
 
 let searchTimer;
 
-searchInput.addEventListener("input", () => {
+function filterChanged() {
+
+    activeRoute = null;
+
+    updateMapMode();
+
+    updateRouteSelection();
+
+    renderResults();
+}
+
+searchInput.addEventListener("input",() => {
 
     clearTimeout(searchTimer);
 
     searchTimer = setTimeout(
-        () => renderResults(),
+
+        filterChanged,
+
         250
     );
 });
 
 areaFilter.addEventListener(
+
     "change",
-    () => renderResults()
+
+    filterChanged
 );
 
 seasonFilter.addEventListener(
+
     "change",
-    () => renderResults()
+
+    filterChanged
 );
 
-document.getElementById("reset-button")
-    .addEventListener("click", () => {
+$("reset-button")
 
-        activeCategory = "all";
+    .addEventListener(
 
-        searchInput.value = "";
+        "click",
 
-        areaFilter.value = "all";
+        resetFilters
+    );
 
-        seasonFilter.value = "all";
+$("exit-route-button")
 
-        updateCategoryButtons();
+    .addEventListener("click",() => {
 
-        renderResults();
+        resetFilters();
     });
 
 /* =====================================
-   Initialize website
+   Responsive map
+===================================== */
+
+window.addEventListener("resize",() => {
+
+    if (map) {
+        map.invalidateSize();
+    }
+});
+
+/* =====================================
+   Initialize application
 ===================================== */
 
 setLanguage("en");
 
 renderResults(true);
+
+loadHeroPhoto();
 
 </script>
 
